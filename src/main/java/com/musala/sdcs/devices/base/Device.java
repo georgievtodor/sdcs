@@ -1,72 +1,29 @@
 package com.musala.sdcs.devices.base;
 
-public abstract class Device implements IDevice {
-    private String manufacturer;
-    private String modelId;
-    private String serialNumber;
-    private String firmwareVersion;
-    private int hardwareVersion;
-    private String label;
+public interface IDevice {
 
-    public Device() {
-        
-    }
-    
-    public Device(String manufacturer, String modelId, String serialNumber, String firmwareVersion, int hardwareVersion,
-            String label) {
-        this.setManufacturer(manufacturer);
-        this.setModelId(modelId);
-        this.setSerialNumber(serialNumber);
-        this.setFirmwareVersion(firmwareVersion);
-        this.setHardwareVersion(hardwareVersion);
-        this.setLabel(label);
-    }
+    String getManufacturer();
 
-    public String getManufacturer() {
-        return manufacturer;
-    }
+    void setManufacturer(String manufacturer);
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
+    String getModelId();
 
-    public String getModelId() {
-        return modelId;
-    }
+    void setModelId(String modelId);
 
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
-    }
+    String getSerialNumber();
 
-    public String getSerialNumber() {
-        return serialNumber;
-    }
+    void setSerialNumber(String serialNumber);
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
+    String getFirmwareVersion();
 
-    public String getFirmwareVersion() {
-        return firmwareVersion;
-    }
+    void setFirmwareVersion(String firmwareVersion);
 
-    public void setFirmwareVersion(String firmwareVersion) {
-        this.firmwareVersion = firmwareVersion;
-    }
+    int getHardwareVersion();
 
-    public int getHardwareVersion() {
-        return hardwareVersion;
-    }
+    void setHardwareVersion(int hardwareVersion);
 
-    public void setHardwareVersion(int hardwareVersion) {
-        this.hardwareVersion = hardwareVersion;
-    }
+    String getLabel();
 
-    public String getLabel() {
-        return label;
-    }
+    void setLabel(String label);
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
 }
