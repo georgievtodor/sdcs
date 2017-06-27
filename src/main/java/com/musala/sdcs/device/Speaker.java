@@ -1,6 +1,10 @@
-package com.musala.sdcs.devices;
+package com.musala.sdcs.device;
 
-import com.musala.sdcs.devices.base.AbstractDevice;
+import java.util.List;
+
+import com.musala.sdcs.device.base.AbstractDevice;
+import com.musala.sdcs.device.channel.base.AbstractChannel;
+import com.musala.sdcs.device.channel.type.PlayControlType;
 
 /**
  * Concrete implementation of speaker that extends {@link AbstractDevice}
@@ -13,10 +17,8 @@ public class Speaker extends AbstractDevice {
     private String songUrl = "";
 
     public Speaker(String manufacturer, String modelId, String serialNumber, String firmwareVersion,
-            int hardwareVersion, String label, PlayControlType controllType, int volume) {
-        super(manufacturer, modelId, serialNumber, firmwareVersion, hardwareVersion, label);
-        this.setControllType(controllType);
-        this.setVolume(volume);
+            int hardwareVersion, String label, List<AbstractChannel> channels) {
+        super(manufacturer, modelId, serialNumber, firmwareVersion, hardwareVersion, label, channels);
     }
 
     /**

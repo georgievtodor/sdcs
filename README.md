@@ -1,4 +1,4 @@
-# Smart Device Controll System
+# Smart Device Control System
 
 ## 1. Overview
 

@@ -1,4 +1,8 @@
-package com.musala.sdcs.devices.base;
+package com.musala.sdcs.device.base;
+
+import java.util.List;
+
+import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
  * 
@@ -14,8 +18,8 @@ public abstract class AbstractDevice implements Device {
     private String firmwareVersion;
     private int hardwareVersion;
     private String label;
+    private List<AbstractChannel> channels;
 
-    
     /**
      * @param manufacturer device manufacturer
      * @param modelId device model id
@@ -25,13 +29,14 @@ public abstract class AbstractDevice implements Device {
      * @param label device label
      */
     public AbstractDevice(String manufacturer, String modelId, String serialNumber, String firmwareVersion,
-            int hardwareVersion, String label) {
+            int hardwareVersion, String label, List<AbstractChannel> channels) {
         this.setManufacturer(manufacturer);
         this.setModelId(modelId);
         this.setSerialNumber(serialNumber);
         this.setFirmwareVersion(firmwareVersion);
         this.setHardwareVersion(hardwareVersion);
         this.setLabel(label);
+        this.setChannels(channels);
     }
 
     @Override
@@ -92,5 +97,17 @@ public abstract class AbstractDevice implements Device {
     @Override
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<AbstractChannel> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(List<AbstractChannel> channels) {
+        this.channels = channels;
+    }
+    
+    public void addChannel(AbstractChannel channel) {
+        this.channels.add(channel);
     }
 }
