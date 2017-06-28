@@ -1,4 +1,8 @@
-package com.musala.sdcs.devices.builder.base;
+package com.musala.sdcs.device.builder.base;
+
+import java.util.List;
+
+import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
  * Abstract implementation of {@link DeviceBuilder}
@@ -13,6 +17,7 @@ public abstract class AbstractDeviceBuilder<T> implements DeviceBuilder<T> {
     private String firmwareVersion;
     private int hardwareVersion;
     private String label;
+    private List<AbstractChannel> channels;
 
     @Override
     public T withManufacturer(String manufacturer) {
@@ -78,5 +83,14 @@ public abstract class AbstractDeviceBuilder<T> implements DeviceBuilder<T> {
     @Override
     public String getLabel() {
         return label;
+    }
+
+    public List<AbstractChannel> getChannels() {
+        return channels;
+    }
+
+    public T withChannels(List<AbstractChannel> channels) {
+        this.channels = channels;
+        return (T) this;
     }
 }

@@ -1,4 +1,8 @@
-package com.musala.sdcs.devices.builder.base;
+package com.musala.sdcs.device.builder.base;
+
+import java.util.List;
+
+import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
  * Generic representation of the builder properties and methods
@@ -84,5 +88,9 @@ public interface DeviceBuilder<T> {
      * @return the label of the device
      */
     String getLabel();
+    
+    T withChannels(List<AbstractChannel> channels);
+    
+    List<AbstractChannel> getChannels();
 
 }

@@ -1,4 +1,8 @@
-package com.musala.sdcs.devices.base;
+package com.musala.sdcs.device.base;
+
+import java.util.List;
+
+import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
  * {@link Device} is a representation of the mutual properties across all devices
@@ -77,5 +81,18 @@ public interface Device {
      * @param label
      */
     void setLabel(String label);
+    
+    /**
+     * @return the channels of the device
+     */
+    List<AbstractChannel> getChannels();
+    
+    /**
+     * sets the device channels
+     * TODO: public or private ?
+     * 
+     * @param channels
+     */
+    void setChannels(List<AbstractChannel> channels);
 
 }
