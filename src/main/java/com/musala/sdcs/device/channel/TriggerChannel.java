@@ -4,7 +4,7 @@ import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.TriggerType;
 
 /**
- * this class defines trigger channel
+ * This class defines trigger channel
  *
  */
 public class TriggerChannel extends AbstractChannel<TriggerType> {

@@ -4,7 +4,7 @@ import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.PlayControlType;
 
 /**
- * this class defines song control channel
+ * This class defines song control channel
  *
  */
 public class SongControlChannel extends AbstractChannel<PlayControlType> {

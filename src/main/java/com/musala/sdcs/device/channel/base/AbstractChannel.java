@@ -1,11 +1,11 @@
 package com.musala.sdcs.device.channel.base;
 
 /**
- * {@link AbstractChannel<T>} is abstract implementation of {@link Channel<T>}
+ * {@link AbstractChannel<T>} is abstract implementation of {@link GenericChannel<T>}
  *
  * @param <T> command type of the channel
  */
-public abstract class AbstractChannel<T> implements Channel<T> {
+public abstract class AbstractChannel<T> implements GenericChannel<T> {
     private String label;
     private T command;
 

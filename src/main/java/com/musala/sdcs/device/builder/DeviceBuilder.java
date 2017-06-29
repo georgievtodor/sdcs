@@ -1,23 +1,22 @@
-package com.musala.sdcs.device.builder.base;
+package com.musala.sdcs.device.builder;
 
 import java.util.List;
 
-import com.musala.sdcs.device.channel.base.AbstractChannel;
+import com.musala.sdcs.device.Device;
+import com.musala.sdcs.device.channel.base.Channel;
 
 /**
  * Generic representation of the builder properties and methods
  *
- * @param <T> type of the builder
  */
-public interface DeviceBuilder<T> {
-
+public interface DeviceBuilder {
     /**
      * sets device manufacturer
      * 
      * @param manufacturer
      * @return current class instance for chaining
      */
-    T withManufacturer(String manufacturer);
+    DeviceBuilder withManufacturer(String manufacturer);
 
     /**
      * @return the manufacturer of the device
@@ -30,7 +29,7 @@ public interface DeviceBuilder<T> {
      * @param modelId
      * @return current class instance for chaining
      */
-    T withModelId(String modelId);
+    DeviceBuilder withModelId(String modelId);
 
     /**
      * @return the model id of the device
@@ -43,7 +42,7 @@ public interface DeviceBuilder<T> {
      * @param serialNumber
      * @return current class instance for chaining
      */
-    T withSerialNumber(String serialNumber);
+    DeviceBuilder withSerialNumber(String serialNumber);
 
     /**
      * @return the serial number of the device
@@ -56,7 +55,7 @@ public interface DeviceBuilder<T> {
      * @param firmwareVersion
      * @return current class instance for chaining
      */
-    T withFirmwareVersion(String firmwareVersion);
+    DeviceBuilder withFirmwareVersion(String firmwareVersion);
 
     /**
      * @return the firmware version of the device
@@ -69,7 +68,7 @@ public interface DeviceBuilder<T> {
      * @param hardwareVersion
      * @return current class instance for chaining
      */
-    T withHardwareVersion(int hardwareVersion);
+    DeviceBuilder withHardwareVersion(int hardwareVersion);
 
     /**
      * @return the hardware version of the device
@@ -82,15 +81,28 @@ public interface DeviceBuilder<T> {
      * @param label
      * @return current class instance for chaining
      */
-    T withLabel(String label);
+    DeviceBuilder withLabel(String label);
 
     /**
      * @return the label of the device
      */
     String getLabel();
     
-    T withChannels(List<AbstractChannel> channels);
+    /**
+     * sets device channels
+     * 
+     * @param channels
+     * @return current class instance for chaining
+     */
+    DeviceBuilder withChannels(List<Channel> channels);
     
-    List<AbstractChannel> getChannels();
+    /**
+     * @return all channels of the device
+     */
+    List<Channel> getChannels();
 
+    /**
+     * @return new device with set'ed properties
+     */
+    Device build();
 }
