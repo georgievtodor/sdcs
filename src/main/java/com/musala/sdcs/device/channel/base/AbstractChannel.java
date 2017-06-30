@@ -10,8 +10,8 @@ public abstract class AbstractChannel<T> implements GenericChannel<T> {
     private T command;
 
     public AbstractChannel(String label, T command) {
-        this.setLabel(label);
-        this.setCommand(command);
+        setLabel(label);
+        setCommand(command);
     }
 
     @Override

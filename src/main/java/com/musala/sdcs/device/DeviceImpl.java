@@ -30,13 +30,13 @@ public class DeviceImpl implements Device {
      */
     public DeviceImpl(String manufacturer, String modelId, String serialNumber, String firmwareVersion,
             int hardwareVersion, String label, List<Channel> channels) {
-        this.setManufacturer(manufacturer);
-        this.setModelId(modelId);
-        this.setSerialNumber(serialNumber);
-        this.setFirmwareVersion(firmwareVersion);
-        this.setHardwareVersion(hardwareVersion);
-        this.setLabel(label);
-        this.setChannels(channels);
+        setManufacturer(manufacturer);
+        setModelId(modelId);
+        setSerialNumber(serialNumber);
+        setFirmwareVersion(firmwareVersion);
+        setHardwareVersion(hardwareVersion);
+        setLabel(label);
+        setChannels(channels);
     }
 
     @Override
