@@ -8,8 +8,8 @@ import com.musala.sdcs.device.channel.base.AbstractChannel;
  */
 public class DimmingChannel extends AbstractChannel<String> {
 
-    public DimmingChannel(String label, String command) {
-        super(label, command);
+    public DimmingChannel(Integer id, String label, String command) {
+        super(id, label, command);
     }
 
     @Override

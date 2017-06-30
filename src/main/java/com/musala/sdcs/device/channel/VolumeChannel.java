@@ -8,15 +8,13 @@ import com.musala.sdcs.device.channel.base.AbstractChannel;
  */
 public class VolumeChannel extends AbstractChannel<String> {
 
-    public VolumeChannel(String label, String command) {
-        super(label, command);
+    public VolumeChannel(Integer id, String label, String command) {
+        super(id, label, command);
     }
 
     @Override
     public void executeCommand(String command) {
         super.executeCommand(command);
-
-        // TODO: Implement method logic
     }
 
 }

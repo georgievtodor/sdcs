@@ -11,6 +11,7 @@ import com.musala.sdcs.device.channel.base.Channel;
  *
  */
 public class DeviceBuilderImpl implements DeviceBuilder {
+	private Integer id;
     private String manufacturer;
     private String modelId;
     private String serialNumber;
@@ -23,14 +24,23 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return new DeviceBuilderImpl();
     }
     
+    private Integer getId() {
+		return id;
+	}
+
     @Override
+	public DeviceBuilder withId(Integer id) {
+		this.id = id;
+		return this;
+	}
+
+	@Override
     public DeviceBuilder withManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
         return this;
     }
 
-    @Override
-    public String getManufacturer() {
+    private String getManufacturer() {
         return manufacturer;
     }
 
@@ -40,8 +50,7 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return this;
     }
 
-    @Override
-    public String getModelId() {
+    private String getModelId() {
         return modelId;
     }
 
@@ -51,8 +60,7 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return this;
     }
 
-    @Override
-    public String getSerialNumber() {
+    private String getSerialNumber() {
         return serialNumber;
     }
 
@@ -62,8 +70,7 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return this;
     }
 
-    @Override
-    public String getFirmwareVersion() {
+    private String getFirmwareVersion() {
         return firmwareVersion;
     }
 
@@ -73,8 +80,7 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return this;
     }
 
-    @Override
-    public int getHardwareVersion() {
+    private int getHardwareVersion() {
         return hardwareVersion;
     }
 
@@ -84,12 +90,11 @@ public class DeviceBuilderImpl implements DeviceBuilder {
         return this;
     }
 
-    @Override
-    public String getLabel() {
+    private String getLabel() {
         return label;
     }
 
-    public List<Channel> getChannels() {
+    private List<Channel> getChannels() {
         return channels;
     }
 
@@ -100,7 +105,7 @@ public class DeviceBuilderImpl implements DeviceBuilder {
 
     @Override
     public Device build() {
-        return new DeviceImpl(this.getManufacturer(), this.getModelId(), this.getSerialNumber(), this.getFirmwareVersion(),
+        return new DeviceImpl(this.getId(), this.getManufacturer(), this.getModelId(), this.getSerialNumber(), this.getFirmwareVersion(),
                 this.getHardwareVersion(), this.getLabel(), this.getChannels());
     }
 }

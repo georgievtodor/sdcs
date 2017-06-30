@@ -9,6 +9,17 @@ import com.musala.sdcs.device.channel.base.Channel;
  *
  */
 public interface Device {
+	/**
+	 * @return the device id
+	 */
+	Integer getId();
+	
+	/**
+	 * sets the device id
+	 * 
+	 * @param id
+	 */
+	void setId(Integer id);
 
     /**
      * @return the manufacturer of the device

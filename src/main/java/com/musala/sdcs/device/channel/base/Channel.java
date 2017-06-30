@@ -7,6 +7,20 @@ package com.musala.sdcs.device.channel.base;
  *
  */
 public interface Channel {
+	
+	/**
+	 * @return the id of the channel
+	 */
+	Integer getId();
+	
+	
+	/**
+	 * sets the channel id
+	 * 
+	 * @param id
+	 */
+	void setId(Integer id);
+	
     /**
      * @return the label of the channel
      */
