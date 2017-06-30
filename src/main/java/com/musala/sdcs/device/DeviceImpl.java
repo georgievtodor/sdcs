@@ -1,24 +1,24 @@
-package com.musala.sdcs.device.base;
+package com.musala.sdcs.device;
 
 import java.util.List;
 
-import com.musala.sdcs.device.channel.base.AbstractChannel;
+import com.musala.sdcs.device.channel.base.Channel;
 
 /**
  * 
- * {@link AbstractDevice} is abstract implementation of {@link Device}.
+ * {@link DeviceImpl} is implementation of {@link Device}.
  * <p>
  * This class implements all mutual properties and methods of the devices.
  *
  */
-public abstract class AbstractDevice implements Device {
+public class DeviceImpl implements Device {
     private String manufacturer;
     private String modelId;
     private String serialNumber;
     private String firmwareVersion;
     private int hardwareVersion;
     private String label;
-    private List<AbstractChannel> channels;
+    private List<Channel> channels;
 
     /**
      * @param manufacturer device manufacturer
@@ -28,15 +28,15 @@ public abstract class AbstractDevice implements Device {
      * @param hardwareVersion device hardware version
      * @param label device label
      */
-    public AbstractDevice(String manufacturer, String modelId, String serialNumber, String firmwareVersion,
-            int hardwareVersion, String label, List<AbstractChannel> channels) {
-        this.setManufacturer(manufacturer);
-        this.setModelId(modelId);
-        this.setSerialNumber(serialNumber);
-        this.setFirmwareVersion(firmwareVersion);
-        this.setHardwareVersion(hardwareVersion);
-        this.setLabel(label);
-        this.setChannels(channels);
+    public DeviceImpl(String manufacturer, String modelId, String serialNumber, String firmwareVersion,
+            int hardwareVersion, String label, List<Channel> channels) {
+        setManufacturer(manufacturer);
+        setModelId(modelId);
+        setSerialNumber(serialNumber);
+        setFirmwareVersion(firmwareVersion);
+        setHardwareVersion(hardwareVersion);
+        setLabel(label);
+        setChannels(channels);
     }
 
     @Override
@@ -99,15 +99,15 @@ public abstract class AbstractDevice implements Device {
         this.label = label;
     }
 
-    public List<AbstractChannel> getChannels() {
+    public List<Channel> getChannels() {
         return channels;
     }
 
-    public void setChannels(List<AbstractChannel> channels) {
+    public void setChannels(List<Channel> channels) {
         this.channels = channels;
     }
     
-    public void addChannel(AbstractChannel channel) {
+    public void addChannel(Channel channel) {
         this.channels.add(channel);
     }
 }

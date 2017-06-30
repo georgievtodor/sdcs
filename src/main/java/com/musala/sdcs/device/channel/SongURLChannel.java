@@ -3,7 +3,7 @@ package com.musala.sdcs.device.channel;
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
- * this class defines song url channel
+ * This class defines song url channel
  *
  */
 public class SongURLChannel extends AbstractChannel<String> {

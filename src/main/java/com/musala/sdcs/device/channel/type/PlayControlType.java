@@ -1,7 +1,6 @@
 package com.musala.sdcs.device.channel.type;
 
 /**
- * 
  * {@link PlayControlType} describes a concrete command type
  *
  */

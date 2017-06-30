@@ -3,7 +3,7 @@ package com.musala.sdcs.device.channel;
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 
 /**
- * this class defines volume channel
+ * This class defines volume channel
  *
  */
 public class VolumeChannel extends AbstractChannel<String> {
