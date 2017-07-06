@@ -1,22 +1,21 @@
 package com.musala.sdcs.device.channel;
 
 import com.musala.sdcs.device.channel.base.AbstractChannel;
+import com.musala.sdcs.device.channel.type.PercentType;
 
 /**
  * This class defines dimming channel
  *
  */
-public class DimmingChannel extends AbstractChannel<String> {
+public class DimmingChannel extends AbstractChannel<PercentType> {
 
-    public DimmingChannel(String label, String command) {
-        super(label, command);
-    }
+	public DimmingChannel(Integer id, String label, PercentType command) {
+		super(id, label, command);
+	}
 
-    @Override
-    public void executeCommand(String command) {
-        super.executeCommand(command);
-
-        // TODO: Implement method logic
-    }
+	@Override
+	public void executeCommand(PercentType command) {
+		super.executeCommand(command);
+	}
 
 }

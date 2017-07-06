@@ -5,93 +5,105 @@ import java.util.List;
 import com.musala.sdcs.device.channel.base.Channel;
 
 /**
- * {@link Device} is a representation of the mutual properties across all devices
+ * {@link Device} is a representation of the mutual properties across all
+ * devices
  *
  */
 public interface Device {
+	/**
+	 * @return the device id
+	 */
+	Integer getId();
 
-    /**
-     * @return the manufacturer of the device
-     */
-    String getManufacturer();
+	/**
+	 * sets the device id
+	 * 
+	 * @param id
+	 */
+	void setId(Integer id);
 
-    /**
-     * sets the device manufacturer
-     * 
-     * @param manufacturer
-     */
-    void setManufacturer(String manufacturer);
+	/**
+	 * @return the manufacturer of the device
+	 */
+	String getManufacturer();
 
-    /**
-     * @return the model id of the device
-     */
-    String getModelId();
+	/**
+	 * sets the device manufacturer
+	 * 
+	 * @param manufacturer
+	 */
+	void setManufacturer(String manufacturer);
 
-    /**
-     * sets the device model id
-     * 
-     * @param modelId
-     */
-    void setModelId(String modelId);
+	/**
+	 * @return the model id of the device
+	 */
+	String getModelId();
 
-    /**
-     * @return the serial number of the device
-     */
-    String getSerialNumber();
+	/**
+	 * sets the device model id
+	 * 
+	 * @param modelId
+	 */
+	void setModelId(String modelId);
 
-    /**
-     * sets the device serial number
-     * 
-     * @param serialNumber
-     */
-    void setSerialNumber(String serialNumber);
+	/**
+	 * @return the serial number of the device
+	 */
+	String getSerialNumber();
 
-    /**
-     * @return the firmware version of the device
-     */
-    String getFirmwareVersion();
+	/**
+	 * sets the device serial number
+	 * 
+	 * @param serialNumber
+	 */
+	void setSerialNumber(String serialNumber);
 
-    /**
-     * sets the device firmware version
-     * 
-     * @param firmwareVersion
-     */
-    void setFirmwareVersion(String firmwareVersion);
+	/**
+	 * @return the firmware version of the device
+	 */
+	String getFirmwareVersion();
 
-    /**
-     * @return the hardware version of the device
-     */
-    int getHardwareVersion();
+	/**
+	 * sets the device firmware version
+	 * 
+	 * @param firmwareVersion
+	 */
+	void setFirmwareVersion(String firmwareVersion);
 
-    /**
-     * sets the device hardware version
-     * 
-     * @param hardwareVersion
-     */
-    void setHardwareVersion(int hardwareVersion);
+	/**
+	 * @return the hardware version of the device
+	 */
+	int getHardwareVersion();
 
-    /**
-     * @return the label of the device
-     */
-    String getLabel();
+	/**
+	 * sets the device hardware version
+	 * 
+	 * @param hardwareVersion
+	 */
+	void setHardwareVersion(int hardwareVersion);
 
-    /**
-     * sets the device label
-     * 
-     * @param label
-     */
-    void setLabel(String label);
-    
-    /**
-     * @return the channels of the device
-     */
-    List<Channel> getChannels();
-    
-    /**
-     * sets the device channels
-     * 
-     * @param channels
-     */
-    void setChannels(List<Channel> channels);
+	/**
+	 * @return the label of the device
+	 */
+	String getLabel();
+
+	/**
+	 * sets the device label
+	 * 
+	 * @param label
+	 */
+	void setLabel(String label);
+
+	/**
+	 * @return the channels of the device
+	 */
+	List<Channel> getChannels();
+
+	/**
+	 * sets the device channels
+	 * 
+	 * @param channels
+	 */
+	void setChannels(List<Channel> channels);
 
 }
