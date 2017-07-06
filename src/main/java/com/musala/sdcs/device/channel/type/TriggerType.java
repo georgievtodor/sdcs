@@ -1,5 +1,8 @@
 package com.musala.sdcs.device.channel.type;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.musala.sdcs.exception.InvalidCommandTypeException;
 
 /**
@@ -13,6 +16,8 @@ public enum TriggerType {
 	private static final String CMD_ON_STRING = "On";
 	private static final String CMD_OFF_STRING = "Off";
 
+	private static Logger logger = LoggerFactory.getLogger(TriggerType.class);
+
 	public static TriggerType getCommandValueFromString(String type) {
 		switch (type) {
 		case CMD_ON_STRING:
@@ -20,7 +25,10 @@ public enum TriggerType {
 		case CMD_OFF_STRING:
 			return Off;
 		default:
-			throw new InvalidCommandTypeException(String.format(INVALID_TRIGGER_TYPE_COMMAND_MESSAGE, type));
+			String errorMessage = String.format(INVALID_TRIGGER_TYPE_COMMAND_MESSAGE, type);
+
+			logger.error(errorMessage);
+			throw new InvalidCommandTypeException(errorMessage);
 		}
 	}
 }

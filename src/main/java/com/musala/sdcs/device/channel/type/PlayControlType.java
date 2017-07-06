@@ -1,5 +1,8 @@
 package com.musala.sdcs.device.channel.type;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.musala.sdcs.exception.InvalidCommandTypeException;
 
 /**
@@ -14,6 +17,8 @@ public enum PlayControlType {
 	private static final String CMD_PAUSE_STRING = "Pause";
 	private static final String CMD_STOP_STRING = "Stop";
 
+	private static final Logger logger = LoggerFactory.getLogger(PlayControlType.class);
+
 	public static PlayControlType getCommandValueFromString(String type) {
 		switch (type) {
 		case CMD_PLAY_STRING:
@@ -23,7 +28,10 @@ public enum PlayControlType {
 		case CMD_STOP_STRING:
 			return Stop;
 		default:
-			throw new InvalidCommandTypeException(String.format(INVALID_PLAY_CONTROL_TYPE_EXCEPTION_MESSAGE, type));
+			String errorMessage = String.format(INVALID_PLAY_CONTROL_TYPE_EXCEPTION_MESSAGE, type);
+
+			logger.error(errorMessage);
+			throw new InvalidCommandTypeException(errorMessage);
 		}
 	}
 }
