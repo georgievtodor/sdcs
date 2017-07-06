@@ -1,8 +1,10 @@
-package com.musala.sdcs.jdbc;
+package com.musala.sdcs.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.musala.sdcs.db.DbUtil;
 
 /**
  * Takes care of DB queries related to channels
@@ -10,7 +12,7 @@ import java.sql.SQLException;
  */
 public class ChannelRepository {
 	private static final String QUERY_UPDATE_COMMAND = "UPDATE channels SET command = '%s' WHERE id = %s;";
-	
+
 	private Connection dbConnection;
 
 	public ChannelRepository() {
@@ -28,10 +30,10 @@ public class ChannelRepository {
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }

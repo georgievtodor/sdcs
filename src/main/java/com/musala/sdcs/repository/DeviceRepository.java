@@ -1,4 +1,4 @@
-package com.musala.sdcs.jdbc;
+package com.musala.sdcs.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.musala.sdcs.db.DbUtil;
 import com.musala.sdcs.device.Device;
 import com.musala.sdcs.device.builder.DeviceBuilderImpl;
 import com.musala.sdcs.device.channel.base.Channel;
@@ -19,13 +20,29 @@ import com.musala.sdcs.device.channel.base.ChannelCreator;
  *
  */
 public class DeviceRepository {
+	private static final String ID = "id";
+	private static final String SERIAL_NUMBER = "serialNumber";
+	private static final String CHANNEL_TYPE = "channelType";
+	private static final String FIRMWARE_VERSION = "firmwareVersion";
+	private static final String HARDWARE_VERSION = "hardwareVersion";
+	private static final String LABEL = "label";
+	private static final String MODEL_ID = "modelId";
+	private static final String MAM_MODEL = "model";
+	private static final String MAM_MANUFACTURER = "manufacturer";
+	private static final String MODEL_NAME = "modelName";
+	private static final String MANUFACTURER_ID = "manufacturerId";
+	private static final String MANUFACTURER_NAME = "manufacturerName";
+	private static final String CHANNEL_ID = "channelId";
+	private static final String CHANNEL_TYPE_ID = "channelTypeId";
+	private static final String CHANNEL_COMMAND = "command";
+
 	private static final String QUERY_GET_DEVICES = "SELECT * FROM devices;";
 	private static final String QUERY_GET_DEVICES_CHANNELS = "SELECT * FROM devices_channels WHERE deviceId = %s;";
 	private static final String QUERY_GET_CHANNELS = "SELECT * FROM channels WHERE id = %s;";
 	private static final String QUERY_GET_CHANNEL_TYPE = "SELECT * FROM channel_types WHERE id = %s";
 	private static final String QUERY_GET_MODEL = "SELECT * FROM models WHERE id = %s;";
 	private static final String QUERY_GET_MANUFACTURER = "SELECT * FROM manufacturers WHERE id = %s;";
-	
+
 	private Connection dbConnection;
 
 	public DeviceRepository() {
@@ -35,32 +52,43 @@ public class DeviceRepository {
 	public List<Device> getAllDevices() {
 		List<Device> devices = new ArrayList<Device>();
 		ResultSet r = executeQuery(QUERY_GET_DEVICES);
-		
+
 		try {
 			while (r.next()) {
-				Integer deviceId = r.getInt("id");
-				String serialNumber = r.getString("serialNumber");
-				String firmwareVersion = r.getString("firmwareVersion");
-				Integer hardwareVersion = r.getInt("hardwareVersion");
-				String label = r.getString("label");
-				Integer modelId = r.getInt("modelId");
-	
-				List<Channel> channels = getDeviceChannels(deviceId);
-				Map<String, String> modelAndManufacturer = getModelAndManufacturer(modelId);
-	
-				String model = modelAndManufacturer.get("model");
-				String manufacturer = modelAndManufacturer.get("manufacturer");
-	
-				Device device = DeviceBuilderImpl.getInstance().withLabel(label).withId(deviceId).withFirmwareVersion(firmwareVersion)
-						.withHardwareVersion(hardwareVersion).withManufacturer(manufacturer).withModelId(model).withSerialNumber(serialNumber)
-						.withChannels(channels).build();
-				
-				devices.add(device);
+				devices.add(getDevice(r));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return devices;
+	}
+
+	private Device getDevice(ResultSet r) {
+		try {
+			Integer deviceId = r.getInt(ID);
+			String serialNumber = r.getString(SERIAL_NUMBER);
+			String firmwareVersion = r.getString(FIRMWARE_VERSION);
+			Integer hardwareVersion = r.getInt(HARDWARE_VERSION);
+			String label = r.getString(LABEL);
+			Integer modelId = r.getInt(MODEL_ID);
+			List<Channel> channels = getDeviceChannels(deviceId);
+			Map<String, String> modelAndManufacturer = getModelAndManufacturer(modelId);
+
+			String model = modelAndManufacturer.get(MAM_MODEL);
+			String manufacturer = modelAndManufacturer.get(MAM_MANUFACTURER);
+
+			Device device = DeviceBuilderImpl.getInstance().withLabel(label).withId(deviceId)
+					.withFirmwareVersion(firmwareVersion).withHardwareVersion(hardwareVersion)
+					.withManufacturer(manufacturer).withModelId(model).withSerialNumber(serialNumber)
+					.withChannels(channels).build();
+
+			return device;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**
@@ -71,18 +99,17 @@ public class DeviceRepository {
 		List<Channel> channels = new ArrayList<Channel>();
 		String query = String.format(QUERY_GET_DEVICES_CHANNELS, deviceId);
 
-		
-			ResultSet r = executeQuery(query);
+		ResultSet r = executeQuery(query);
 
-			try {
-				while (r.next()) {
-					Integer channelId = r.getInt("channelId");
+		try {
+			while (r.next()) {
+				Integer channelId = r.getInt(CHANNEL_ID);
 
-					channels.add(getChannel(channelId));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+				channels.add(getChannel(channelId));
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return channels;
 	}
@@ -93,23 +120,22 @@ public class DeviceRepository {
 	 */
 	private Channel getChannel(Integer channelId) {
 		String query = String.format(QUERY_GET_CHANNELS, channelId);
-		
-		
-			ResultSet r = executeQuery(query);
 
-			try {
-				if (r.next()) {
-					Integer id = r.getInt("id");
-					Integer channelTypeId = r.getInt("channelTypeId");
-					String label = r.getString("label");
-					String command = r.getString("command");
-					String channelType = getChannelType(channelTypeId);
+		ResultSet r = executeQuery(query);
 
-					return ChannelCreator.createChannel(id, label, command, channelType);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+			if (r.next()) {
+				Integer id = r.getInt(ID);
+				Integer channelTypeId = r.getInt(CHANNEL_TYPE_ID);
+				String label = r.getString(LABEL);
+				String command = r.getString(CHANNEL_COMMAND);
+				String channelType = getChannelType(channelTypeId);
+
+				return ChannelCreator.createChannel(id, label, command, channelType);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 
 	}
@@ -121,13 +147,13 @@ public class DeviceRepository {
 	private String getChannelType(Integer channelTypeId) {
 		String query = String.format(QUERY_GET_CHANNEL_TYPE, channelTypeId);
 		String channelType = "";
-		
+
 		try {
 
 			ResultSet r = executeQuery(query);
-			
+
 			if (r.next()) {
-				channelType = r.getString("channelType");
+				channelType = r.getString(CHANNEL_TYPE);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,17 +171,17 @@ public class DeviceRepository {
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		try {
-			
+
 			ResultSet r = executeQuery(query);
-			
+
 			if (r.next()) {
-				String modelName = r.getString("modelName");
-				Integer manufacturerId = r.getInt("manufacturerId");
+				String modelName = r.getString(MODEL_NAME);
+				Integer manufacturerId = r.getInt(MANUFACTURER_ID);
 
 				String manufacturer = getManufacturer(manufacturerId);
 
-				result.put("model", modelName);
-				result.put("manufacturer", manufacturer);
+				result.put(MAM_MODEL, modelName);
+				result.put(MAM_MANUFACTURER, manufacturer);
 
 			}
 		} catch (SQLException e) {
@@ -174,11 +200,11 @@ public class DeviceRepository {
 		String manufacturer = "";
 
 		try {
-			
+
 			ResultSet result = executeQuery(query);
 
 			if (result.next()) {
-				manufacturer = result.getString("manufacturerName");
+				manufacturer = result.getString(MANUFACTURER_NAME);
 			}
 
 		} catch (SQLException e) {
@@ -187,24 +213,24 @@ public class DeviceRepository {
 
 		return manufacturer;
 	}
-	
+
 	/**
 	 * @param query
 	 * @return result of the performed query
 	 */
 	private ResultSet executeQuery(String query) {
 		ResultSet result = null;
-		
+
 		try {
-			
+
 			CallableStatement stmt = dbConnection.prepareCall(query);
-			
+
 			result = stmt.executeQuery();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 }

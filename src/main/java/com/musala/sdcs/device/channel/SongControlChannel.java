@@ -9,13 +9,12 @@ import com.musala.sdcs.device.channel.type.PlayControlType;
  */
 public class SongControlChannel extends AbstractChannel<PlayControlType> {
 
-    public SongControlChannel(Integer id, String label, PlayControlType command) {
-        super(id, label, command);
-    }
+	public SongControlChannel(Integer id, String label, PlayControlType command) {
+		super(id, label, command);
+	}
 
-    @Override
-    public void executeCommand(PlayControlType command) {
-        super.executeCommand(command);
-       
-    }
+	@Override
+	public void executeCommand(PlayControlType command) {
+		super.executeCommand(command);
+	}
 }
