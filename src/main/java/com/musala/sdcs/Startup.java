@@ -3,6 +3,9 @@ package com.musala.sdcs;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.musala.sdcs.device.Device;
 import com.musala.sdcs.device.channel.SongControlChannel;
 import com.musala.sdcs.device.channel.base.Channel;
@@ -10,8 +13,12 @@ import com.musala.sdcs.device.channel.type.PlayControlType;
 import com.musala.sdcs.repository.DeviceRepository;
 
 public class Startup {
+	private static final String LOGGER_INFO_MESSAGE = "Application Started";
 
 	public static void main(String[] args) throws SQLException {
+		Logger logger = LoggerFactory.getLogger(Startup.class);
+		logger.info(LOGGER_INFO_MESSAGE);
+
 		DeviceRepository repo = new DeviceRepository();
 		List<Device> devices = repo.getAllDevices();
 		SongControlChannel ch = (SongControlChannel) devices.get(0).getChannels().get(2);

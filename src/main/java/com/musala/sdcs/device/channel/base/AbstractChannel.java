@@ -1,6 +1,8 @@
 package com.musala.sdcs.device.channel.base;
 
-import com.musala.sdcs.device.channel.type.PercentType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.musala.sdcs.repository.ChannelRepository;
 
 /**
@@ -11,6 +13,10 @@ import com.musala.sdcs.repository.ChannelRepository;
  *            command type of the channel
  */
 public abstract class AbstractChannel<T> implements GenericChannel<T> {
+	private static Logger logger = LoggerFactory.getLogger(AbstractChannel.class);
+
+	private static final String LOGGER_COMMAND_EXECUTION_INFO = "%s was executed";
+
 	private Integer id;
 	private String label;
 	private T command;
@@ -61,6 +67,7 @@ public abstract class AbstractChannel<T> implements GenericChannel<T> {
 	public void executeCommand(T command) {
 		this.setCommand(command);
 		getChannelRepository().updateChannelCommand(command.toString(), getId());
+		logger.info(String.format(LOGGER_COMMAND_EXECUTION_INFO, command.toString()));
 	}
 
 }

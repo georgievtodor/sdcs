@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.musala.sdcs.db.DbUtil;
 import com.musala.sdcs.device.Device;
 import com.musala.sdcs.device.builder.DeviceBuilderImpl;
@@ -43,10 +46,14 @@ public class DeviceRepository {
 	private static final String QUERY_GET_MODEL = "SELECT * FROM models WHERE id = %s;";
 	private static final String QUERY_GET_MANUFACTURER = "SELECT * FROM manufacturers WHERE id = %s;";
 
+	private static final String LOGGER_INVALID_SQL_MESSAGE = "Invalid sql query given";
+
 	private Connection dbConnection;
+	private Logger logger;
 
 	public DeviceRepository() {
 		this.dbConnection = DbUtil.getConnection();
+		this.logger = LoggerFactory.getLogger(DeviceRepository.class);
 	}
 
 	public List<Device> getAllDevices() {
@@ -58,7 +65,7 @@ public class DeviceRepository {
 				devices.add(getDevice(r));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 		return devices;
 	}
@@ -85,7 +92,7 @@ public class DeviceRepository {
 			return device;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return null;
@@ -108,7 +115,7 @@ public class DeviceRepository {
 				channels.add(getChannel(channelId));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return channels;
@@ -134,7 +141,7 @@ public class DeviceRepository {
 				return ChannelCreator.createChannel(id, label, command, channelType);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 		return null;
 
@@ -156,7 +163,7 @@ public class DeviceRepository {
 				channelType = r.getString(CHANNEL_TYPE);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return channelType;
@@ -185,7 +192,7 @@ public class DeviceRepository {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return result;
@@ -208,7 +215,7 @@ public class DeviceRepository {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return manufacturer;
@@ -228,7 +235,7 @@ public class DeviceRepository {
 			result = stmt.executeQuery();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
 
 		return result;

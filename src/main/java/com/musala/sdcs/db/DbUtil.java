@@ -2,10 +2,13 @@ package com.musala.sdcs.db;
 
 import java.sql.DriverManager;
 import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.Connection;
 
 /**
@@ -19,7 +22,10 @@ public class DbUtil {
 	private static final String DB_DRIVER = "dbDriver";
 	private static final String DB_PROPERTIES_FILE_PATH = "db_resources/db.properties";
 
+	private static final String LOGGER_CONNECTION_EXCEPTION_MESSAGE = "Couldn't connect to database!";
+
 	private static Connection dbConnection = null;
+	private static Logger logger = LoggerFactory.getLogger(DbUtil.class);
 
 	/**
 	 * @return DB Connection
@@ -45,7 +51,7 @@ public class DbUtil {
 			dbConnection = DriverManager.getConnection(connectionUrl, username, password);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(LOGGER_CONNECTION_EXCEPTION_MESSAGE, e);
 		}
 
 		return dbConnection;
