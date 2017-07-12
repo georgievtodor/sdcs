@@ -114,3 +114,19 @@ Additionally, a device simulator should be present in the system to serve as a r
 >Below is a sample scheme of what the simulator should provide (image is illustrative):
 
 ![Simulator UI](doc_resources/sample_simulator_overview.png)
+
+
+
+## Setup running environment
+
+### For angular:
+
+Dependencies: NODEjs (npm), Angular2
+1. Install Angular2 from node: npm install -g @angular/cli
+2. Install package dependencies: cd sdcs-site; npm install
+3. Start angular: ng serve
+
+### For framework DB connection:
+
+Go to db_resources and change db.properties to correspond to your DB user and password.
+SQL build script and DB schema are provided.
