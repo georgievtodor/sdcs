@@ -97,3 +97,20 @@ In general: 1 thing <--> n channels <--> n command types, where every channel’
     song to be played, control the player and set its volume. 
     Finally, the user should be able to set the bulb to on or off, as 
     well as set its color and dimming percentage
+
+## 4. Additional system components
+
+Additionally, a device simulator should be present in the system to serve as a real device substituent. It should have a UI which illustrates the following devices with their corresponding functionalities:
+
+1. *A light bulb* - depicted by two images (bulb that is lit up and bulb that is switched off), with additional indicator for the color (e.g. a circle which is colored in the corresponding HEX color value) and dimmer percent value indicator (as text).
+2. *A motion sensor* - depicted by an image of a motion sensor. When there is a click event on the motion sensor (the image should be put in an anchor tag so that the default pointer is changed for better usability on hover), this would be counted as a simulated sensor trigger.
+3. *A door open/close contac*t - depicted by an appropriate image (to be discussed) with the same logic as the motion sensor.
+4. *A window open/close contact* - same as for the door open/close contact.
+5. *A wireless sound speaker* - depicted by a speaker image. As for the bulb, we should display if it is on or off, show its volume level (as text), show the URL of the currently played song (as text), show the currently applied command (e.g. play/stop/etc. as text).
+6. *An internal temperature and humidity sensor* - depicted by a simple thermometer icon with input text fields for the temperature and humidity values to simulate readings.
+
+
+
+>Below is a sample scheme of what the simulator should provide (image is illustrative):
+
+![Simulator UI](doc_resources/sample_simulator_overview.png)
