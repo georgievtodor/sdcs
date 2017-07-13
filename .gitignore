@@ -23,3 +23,5 @@ hs_err_pid*
 /target/
 
 .metadata/
+
+/framework/db_resources/db.properties

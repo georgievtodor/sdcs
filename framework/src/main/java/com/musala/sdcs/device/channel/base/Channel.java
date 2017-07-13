@@ -33,7 +33,18 @@ public interface Channel {
 	 */
 	void setLabel(String label);
 
+	/**
+	 * sets the channel type
+	 * this is passed to the front end for handling different channels
+	 * 
+	 * @param channelType
+	 */
 	void setChannelType(String channelType);
-	
+
+	/**
+	 * this is passed to the front end for handling different channels
+	 *
+	 * @return channel type
+	 */
 	String getChannelType();
 }

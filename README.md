@@ -121,9 +121,9 @@ Additionally, a device simulator should be present in the system to serve as a r
 
 ### For angular:
 
-Dependencies: NODEjs (npm), Angular2
-1. Install Angular2 from node: npm install -g @angular/cli
-2. Install package dependencies: cd sdcs-site; npm install
+Dependencies: NODE.JS (npm), Angular2
+1. Install Angular2 from node: `npm install -g @angular/cli`
+2. Install package dependencies: `cd sdcs-site` -> `npm install`
 3. Start angular: ng serve
 
 ### For framework DB connection:
