@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2017 at 01:31 PM
+-- Generation Time: Jul 18, 2017 at 12:55 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -38,9 +38,11 @@ CREATE TABLE `channels` (
 --
 
 INSERT INTO `channels` (`id`, `channelTypeId`, `label`, `command`) VALUES
-(1, 5, 'Volume', '40'),
-(2, 3, 'Song URL', 'https://sony.com'),
-(3, 2, 'Song control', 'Pause');
+(1, 5, 'Volume', '52'),
+(2, 3, 'Song URL', 'https://www.sony.com/'),
+(3, 2, 'Song control', 'Stop'),
+(4, 4, 'Trigger ', 'On'),
+(5, 6, 'Color', '#1e8b1c');
 
 -- --------------------------------------------------------
 
@@ -62,7 +64,8 @@ INSERT INTO `channel_types` (`id`, `channelType`) VALUES
 (2, 'SongControlChannel'),
 (3, 'SongURLChannel'),
 (4, 'TriggerChannel'),
-(5, 'VolumeChannel');
+(5, 'VolumeChannel'),
+(6, 'ColorChannel');
 
 -- --------------------------------------------------------
 
@@ -84,7 +87,8 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`id`, `serialNumber`, `firmwareVersion`, `hardwareVersion`, `label`, `modelId`) VALUES
-(2, '1st', 'some firmware version', 1, '90\'s best', 1);
+(2, '1st', 'some firmware version', 1, '90\'s best', 1),
+(3, '2nd', 'same', 2, 'dunno', 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +108,10 @@ CREATE TABLE `devices_channels` (
 INSERT INTO `devices_channels` (`deviceId`, `channelId`) VALUES
 (2, 1),
 (2, 2),
-(2, 3);
+(2, 3),
+(3, 3),
+(2, 4),
+(3, 5);
 
 -- --------------------------------------------------------
 
@@ -195,17 +202,17 @@ ALTER TABLE `models`
 -- AUTO_INCREMENT for table `channels`
 --
 ALTER TABLE `channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `channel_types`
 --
 ALTER TABLE `channel_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `manufacturers`
 --

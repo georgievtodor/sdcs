@@ -1,0 +1,32 @@
+<div *ngIf="device">
+    <div class="row single-device col-lg-10 col-lg-offset-1">
+      <!-- Editable -->
+      <div *ngIf="device.editable">
+        <form (ngSubmit)="onUpdateDevice()" [formGroup]="updateForm">
+          <input style="float:right;" type="submit" id="update" value="Update" class="btn btn-success locked_active" />
+          <h3>Label: </h3><input type="text" style="color:black;" name="label" id="device-label" formControlName="label" placeholder="{{device.label}}">
+          <h3>Manufacturer: {{device.manufacturer}}</h3>
+          <h3>Model: {{device.modelId}}</h3>
+          <h3>Firmware version: </h3><input type="text" style="color:black;" name="firmwareVersion" id="device-firmwareVersion"
+            formControlName="firmwareVersion" placeholder="{{device.firmwareVersion}}">
+          <h3>Hardware Version: </h3><input type="text" style="color:black;" name="hardwareVersion" id="device-hardwareVersion"
+            formControlName="hardwareVersion" placeholder="{{device.hardwareVersion}}">
+          <h4>Serial Number: {{device.serialNumber}}</h4>
+
+        </form>
+      </div>
+
+      <!-- Not Editable -->
+      <div *ngIf="!device.editable">
+        <button style="float:right;" (click)="editClicked()" type="button" class="btn btn-success locked_active">Edit</button>
+        <h3>Label: {{device.label}}</h3>
+        <h3>Manufacturer: {{device.manufacturer}}</h3>
+        <h3>Model: {{device.modelId}}</h3>
+        <br>
+        <h4>Firmware Version: {{device.firmwareVersion}}</h4>
+        <h4>Hardware Version: {{device.hardwareVersion}}</h4>
+        <h4>Serial Number: {{device.serialNumber}}</h4>
+      </div>
+    </div>
+    <app-channel *ngFor="let channel of device.channels" [channel]="channel"></app-channel>
+  </div>

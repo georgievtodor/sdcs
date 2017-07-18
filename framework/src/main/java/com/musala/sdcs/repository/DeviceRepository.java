@@ -48,6 +48,7 @@ public class DeviceRepository {
 	private static final String QUERY_GET_CHANNEL_TYPE = "SELECT * FROM channel_types WHERE id = %s";
 	private static final String QUERY_GET_MODEL = "SELECT * FROM models WHERE id = %s;";
 	private static final String QUERY_GET_MANUFACTURER = "SELECT * FROM manufacturers WHERE id = %s;";
+	private static final String QUERY_UPDATE_DEVICE = "UPDATE devices SET label = '%s', firmwareVersion = '%s', hardwareVersion = '%s' WHERE id = %s;";
 
 	private static final String LOGGER_INVALID_SQL_MESSAGE = "Invalid sql query given";
 
@@ -239,6 +240,29 @@ public class DeviceRepository {
 
 		return manufacturer;
 	}
+	
+	/**
+	 * updates device properties
+	 * 
+	 * @param label
+	 * @param firmwareVersion
+	 * @param hardwareVersion
+	 * @param id
+	 * @return success or fail message
+	 */
+	public String updateDevice(String label, String firmwareVersion, String hardwareVersion, Integer id) {
+		String query = String.format(QUERY_UPDATE_DEVICE, label, firmwareVersion, hardwareVersion, id);
+		System.out.println(query);
+		try {
+			CallableStatement stmt = dbConnection.prepareCall(query);
+			stmt.executeUpdate();
+			return "success";
+
+		} catch (SQLException e) {
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
+			return "failed";
+		}
+	}
 
 	/**
 	 * @param query
@@ -259,4 +283,6 @@ public class DeviceRepository {
 		
 		return result;
 	}
+	
+	
 }

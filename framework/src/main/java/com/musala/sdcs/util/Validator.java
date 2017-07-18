@@ -21,4 +21,12 @@ public class Validator {
 	public static boolean validateURL(String value) {
 		return Pattern.matches(URL_PATTERN, value) ? true : false;
 	}
+
+	public static boolean validateColor(String value) {
+		if(value.length() == 7 && value.charAt(0) == '#') {
+			return true;
+		}
+		
+		return false;
+	}
 }

@@ -7,8 +7,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class Requester {
     headers: Headers = new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+        'Content-Type': 'application/json'
     });
     api_url = 'http://localhost:8080/';
 
@@ -36,7 +35,7 @@ export class Requester {
             .map(this.getJson);
     }
 
-    post(path: string, body): Observable<any> {
+    post(path: string, body: any): Observable<any> {
         return this.http.post(
             `${this.api_url}${path}`,
             JSON.stringify(body),
@@ -46,13 +45,15 @@ export class Requester {
             .map(this.getJson)
     }
 
-    put(path: string, body): Observable<any> {
+    put(path: string, body: any): Observable<any> {
         return this.http.put(`${this.api_url}${path}`,
             JSON.stringify(body),
             { headers: this.headers })
             .map(this.checkForError)
             .catch(err => Observable.throw(err))
-            .map(this.getJson)
+            .map( resp => {
+                return resp._body;
+            })
     }
 
     setHeaders(headers) {

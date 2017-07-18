@@ -1,5 +1,5 @@
-import { HomeService } from './../services/home.service';
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef,  } from '@angular/core';
+import { HomeService } from './../services/home/home.service';
 
 
 @Component({
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private service: HomeService) { }
 
   ngOnInit() {
+   
     this.service.getAllDevices()
       .subscribe(response => {
         if (response.message !== 'error') {
@@ -27,8 +28,10 @@ export class HomeComponent implements OnInit {
     .subscribe(response => {
       if (response.message !== 'error') {
         this.device = response;
+        this.device.editable = false;
       }
     });
   }
+
 
 }

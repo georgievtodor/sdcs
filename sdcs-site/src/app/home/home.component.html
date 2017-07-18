@@ -1,5 +1,5 @@
 <div class="page-wrapper">
-<div class="col-lg-1"></div>
+  <div class="col-lg-1"></div>
 
   <div class="row">
     <div class="col-lg-10">
@@ -8,7 +8,6 @@
   </div>
   <div class="row col-lg-10 col-lg-offset-1">
     <div *ngFor="let device of devices">
-      <!--<a href="device/{{device.id}}">-->
       <div (click)="onDeviceSelected(device.id)">
         <div class="col-lg-3 col-md-6">
           <div class="panel panel-primary">
@@ -23,15 +22,9 @@
           </div>
         </div>
       </div>
-      <!--</a>-->
     </div>
   </div>
-
-  <div *ngIf="device">
-    <div class="row single-device col-lg-10 col-lg-offset-1">
-      <p>{{device.label}}</p>
-    </div>
-  </div>
-
-<div class="col-lg-1"></div>
+  <app-device [device]="device"></app-device>
+  
+  <div class="col-lg-1"></div>
 </div>
