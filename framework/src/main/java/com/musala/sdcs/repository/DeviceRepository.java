@@ -25,6 +25,8 @@ import com.musala.sdcs.device.channel.base.ChannelCreator;
  */
 @Repository
 public class DeviceRepository {
+	private static final String LOGGER_DEVICE_CREATED = "Device created";
+	private static final String LOGGER_GETTING_ALL_DEVICES = "Getting all devices";
 	private static final String ID = "id";
 	private static final String SERIAL_NUMBER = "serialNumber";
 	private static final String CHANNEL_TYPE = "channelType";
@@ -62,8 +64,11 @@ public class DeviceRepository {
 
 	public List<Device> getAllDevices() {
 		List<Device> devices = new ArrayList<Device>();
+		
 		ResultSet r = executeQuery(QUERY_GET_DEVICES);
 
+		logger.info(LOGGER_GETTING_ALL_DEVICES);
+		
 		try {
 			while (r.next()) {
 				devices.add(getDevice(r));
@@ -75,9 +80,12 @@ public class DeviceRepository {
 	}
 
 	public Device getDeviceById(int id) {
+		
 		String query = String.format(QUERY_GET_DEVICE_BY_ID, id);
 		ResultSet r = executeQuery(query);
-				
+		
+		logger.info(query);
+		
 		try {
 			if (r.next()) {
 				return getDevice(r);
@@ -108,7 +116,9 @@ public class DeviceRepository {
 					.withFirmwareVersion(firmwareVersion).withHardwareVersion(hardwareVersion)
 					.withManufacturer(manufacturer).withModelId(model).withSerialNumber(serialNumber)
 					.withChannels(channels).build();
-
+			
+			logger.info(LOGGER_DEVICE_CREATED);
+			
 			return device;
 
 		} catch (SQLException e) {
@@ -127,6 +137,8 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_DEVICES_CHANNELS, deviceId);
 
 		ResultSet r = executeQuery(query);
+		
+		logger.info(query);
 
 		try {
 			while (r.next()) {
@@ -149,6 +161,8 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_CHANNELS, channelId);
 
 		ResultSet r = executeQuery(query);
+		
+		logger.info(query);
 
 		try {
 			if (r.next()) {
@@ -174,6 +188,8 @@ public class DeviceRepository {
 	private String getChannelType(Integer channelTypeId) {
 		String query = String.format(QUERY_GET_CHANNEL_TYPE, channelTypeId);
 		String channelType = "";
+		
+		logger.info(query);
 
 		try {
 
@@ -197,6 +213,8 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_MODEL, modelId);
 		HashMap<String, String> result = new HashMap<String, String>();
 
+		logger.info(query);
+		
 		try {
 
 			ResultSet r = executeQuery(query);
@@ -226,6 +244,8 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_MANUFACTURER, manufacturerId);
 		String manufacturer = "";
 
+		logger.info(query);
+		
 		try {
 
 			ResultSet result = executeQuery(query);
@@ -248,18 +268,22 @@ public class DeviceRepository {
 	 * @param firmwareVersion
 	 * @param hardwareVersion
 	 * @param id
-	 * @return success or fail message
+	 * @return success or fail message for front-end handling
 	 */
 	public String updateDevice(String label, String firmwareVersion, String hardwareVersion, Integer id) {
 		String query = String.format(QUERY_UPDATE_DEVICE, label, firmwareVersion, hardwareVersion, id);
-		System.out.println(query);
+		
+		logger.info(query);
+		
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
+			
 			return "success";
 
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
+			
 			return "failed";
 		}
 	}
@@ -270,6 +294,8 @@ public class DeviceRepository {
 	 */
 	private ResultSet executeQuery(String query) {
 		ResultSet result = null;
+		
+		logger.info(query);
 
 		try {
 

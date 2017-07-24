@@ -33,10 +33,13 @@ public class ChannelRepository {
 	 * 
 	 * @param command
 	 * @param id
+	 * @return command or fail message for front-end handling
 	 */
 	public String updateChannelCommand(String command, Integer id) {
 		String query = String.format(QUERY_UPDATE_COMMAND, command, id);
-		System.out.println(query);
+
+		logger.info(query);
+		
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
@@ -44,7 +47,6 @@ public class ChannelRepository {
 
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
-			System.out.println(query);
 			return "failed";
 		}
 	}
@@ -54,10 +56,13 @@ public class ChannelRepository {
 	 * 
 	 * @param command
 	 * @param id
+	 * @return label or fail message for front-end handling
 	 */
 	public String updateChannelLabel(String label, Integer id) {
 		String query = String.format(QUERY_UPDATE_LABEL, label, id);
-		System.out.println(query);
+
+		logger.info(query);
+
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
@@ -65,7 +70,6 @@ public class ChannelRepository {
 
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
-			System.out.println(query);
 			return "failed";
 		}
 	}
