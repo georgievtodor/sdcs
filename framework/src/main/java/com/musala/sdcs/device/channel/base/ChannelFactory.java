@@ -1,10 +1,12 @@
 package com.musala.sdcs.device.channel.base;
 
+import com.musala.sdcs.device.channel.ColorChannel;
 import com.musala.sdcs.device.channel.DimmingChannel;
 import com.musala.sdcs.device.channel.SongControlChannel;
 import com.musala.sdcs.device.channel.SongURLChannel;
 import com.musala.sdcs.device.channel.TriggerChannel;
 import com.musala.sdcs.device.channel.VolumeChannel;
+import com.musala.sdcs.device.channel.type.ColorType;
 import com.musala.sdcs.device.channel.type.PercentType;
 import com.musala.sdcs.device.channel.type.PlayControlType;
 import com.musala.sdcs.device.channel.type.TriggerType;
@@ -32,5 +34,11 @@ public class ChannelFactory {
 	public static Channel createVolumeChannel(Integer id, String label, String channelType, String command) {
 		PercentType commandVal = new PercentType(command);
 		return new VolumeChannel(id, label, channelType, commandVal);
+	}
+	
+	public static Channel createColorChannel(Integer id, String label, String channelType, String command) {
+		ColorType commandVal = new ColorType(command);
+		
+		return new ColorChannel(id, label, channelType, commandVal);
 	}
 }

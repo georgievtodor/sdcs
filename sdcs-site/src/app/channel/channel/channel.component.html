@@ -1,3 +1,87 @@
-<p>
-  channel works!
-</p>
+<div class="row single-channel col-lg-10 col-lg col-lg-offset-1">
+
+  <!-- NOT EDITABLE -->
+  <div *ngIf="!editable">
+    <button style="float:right;" (click)="editClicked()" type="button" class="btn btn-success locked_active">Edit</button>
+    <h3 style="color:white;">{{channel.label}}</h3>
+  </div>
+
+  <!-- EDITABLE -->
+  <div *ngIf="editable">
+    <form (ngSubmit)="onUpdateChannel()" [formGroup]="updateForm">
+      <input style="float:right;" type="submit" id="updateChannel" value="Update" class="btn btn-success locked_active" />
+      <h3 style="color:white">Label: </h3><input type="text" style="color:black;" name="label" id="channel-label" formControlName="label" placeholder="{{channel.label}}">
+    </form>
+  </div>
+
+  <div *ngIf="channel.channelType == 'ColorChannel'">
+    <input [(colorPicker)]="channel.command.val" [cpOKButton]="true" (colorPickerSelect)="onChangeColor($event)" [style.background]="channel.command.val"
+    />
+  </div>
+
+  <!-- VOLUME CHANNEL OR DIMMING CHANNEL -->
+  <div *ngIf="channel.channelType == 'VolumeChannel' || channel.channelType == 'DimmingChannel'">
+    <input id="rangeInput" (mousemove)='onRangeMove($event)' (change)='onRangeChange($event, channel.id)' type="range" min="0"
+      max="100" value="{{channel.command.val}}">
+    <div id="rangeInputText" style="color:white;">{{channel.command.val}}%</div>
+  </div>
+
+  <!-- SONG URL CHANNEL-->
+  <div *ngIf="channel.channelType == 'SongURLChannel'">
+    <form #urlForm="ngForm" (ngSubmit)="onUrlUpdate(urlForm, channel.id)">
+      <input type="text" name="newUrl" id="newUrl" style="color:black" [(ngModel)]="channel.command.val">
+      <input class="btn btn-success" type="submit" value="Update URL">
+    </form>
+  </div>
+
+  <!-- SONG CONTROL CHANNEL -->
+  <div *ngIf="channel.channelType == 'SongControlChannel'">
+
+    <!-- PLAY -->
+    <div *ngIf="channel.command == 'Play'">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success locked_active">Play</button>
+        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive">Pause</button>
+        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive">Stop</button>
+      </div>
+    </div>
+
+    <!-- PAUSE-->
+    <div *ngIf="channel.command == 'Pause'">
+      <div class="btn-group">
+        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive">Play</button>
+        <button type="button" class="btn btn-success locked_active">Pause</button>
+        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive">Stop</button>
+      </div>
+    </div>
+
+    <!-- STOP -->
+    <div *ngIf="channel.command == 'Stop'">
+      <div class="btn-group">
+        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive">Play</button>
+        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive">Pause</button>
+        <button type="button" class="btn btn-success locked_active">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRIGGER CHANNEL -->
+  <div *ngIf="channel.channelType == 'TriggerChannel'">
+
+    <!-- ON -->
+    <div *ngIf="channel.command == 'Off'">
+      <div class="btn-group">
+        <button type="button" (click)="onTriggerClicked('On')" class=" btn btn-default unlocked_inactive ">On</button>
+        <button type="button" class="btn btn-success locked_active">Off</button>
+      </div>
+    </div>
+
+    <!-- OFF -->
+    <div *ngIf="channel.command == 'On'">
+      <div class="btn-group ">
+        <button type="button" class="btn btn-success locked_active ">On</button>
+        <button type="button" (click)="onTriggerClicked('Off')" class="btn btn-default unlocked_inactive ">Off</button>
+      </div>
+    </div>
+  </div>
+</div>

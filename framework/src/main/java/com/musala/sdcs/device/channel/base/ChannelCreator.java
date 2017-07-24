@@ -18,6 +18,7 @@ public class ChannelCreator {
 	private static final String SONG_URL_CHANNEL = "SongURLChannel";
 	private static final String TRIGGER_CHANNEL = "TriggerChannel";
 	private static final String VOLUME_CHANNEL = "VolumeChannel";
+	private static final String COLOR_CHANNEL = "ColorChannel";
 
 	private static Logger logger = LoggerFactory.getLogger(ChannelCreator.class);
 
@@ -44,6 +45,8 @@ public class ChannelCreator {
 			return ChannelFactory.createTriggerChannel(id, label, channelType, command);
 		case VOLUME_CHANNEL:
 			return ChannelFactory.createVolumeChannel(id, label, channelType, command);
+		case COLOR_CHANNEL:
+			return ChannelFactory.createColorChannel(id, label, channelType, command);
 		default:
 			logger.error(String.format(LOGGER_ERROR_MESSAGE, channelType));
 			throw new InvalidChannelTypeException(String.format(INVALID_CHANNEL_TYPE_MESSAGE, channelType));

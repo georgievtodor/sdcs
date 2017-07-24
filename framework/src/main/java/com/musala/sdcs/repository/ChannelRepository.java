@@ -17,6 +17,7 @@ import com.musala.sdcs.db.DbUtil;
 @Repository
 public class ChannelRepository {
 	private static final String QUERY_UPDATE_COMMAND = "UPDATE channels SET command = '%s' WHERE id = %s;";
+	private static final String QUERY_UPDATE_LABEL = "UPDATE channels SET label = '%s' WHERE id = %s;";
 	private static final String LOGGER_INVALID_SQL_MESSAGE = "Invalid sql query given";
 
 	private Connection dbConnection;
@@ -32,15 +33,44 @@ public class ChannelRepository {
 	 * 
 	 * @param command
 	 * @param id
+	 * @return command or fail message for front-end handling
 	 */
-	public void updateChannelCommand(String command, Integer id) {
+	public String updateChannelCommand(String command, Integer id) {
 		String query = String.format(QUERY_UPDATE_COMMAND, command, id);
+
+		logger.info(query);
+		
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
+			return command;
 
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
+			return "failed";
+		}
+	}
+	
+	/**
+	 * updates current channel label
+	 * 
+	 * @param command
+	 * @param id
+	 * @return label or fail message for front-end handling
+	 */
+	public String updateChannelLabel(String label, Integer id) {
+		String query = String.format(QUERY_UPDATE_LABEL, label, id);
+
+		logger.info(query);
+
+		try {
+			CallableStatement stmt = dbConnection.prepareCall(query);
+			stmt.executeUpdate();
+			return label;
+
+		} catch (SQLException e) {
+			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
+			return "failed";
 		}
 	}
 }
