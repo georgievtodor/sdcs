@@ -25,7 +25,6 @@ import com.musala.sdcs.device.channel.base.ChannelCreator;
  */
 @Repository
 public class DeviceRepository {
-	private static final String LOGGER_DEVICE_CREATED = "Device created";
 	private static final String LOGGER_GETTING_ALL_DEVICES = "Getting all devices";
 	private static final String ID = "id";
 	private static final String SERIAL_NUMBER = "serialNumber";
@@ -84,8 +83,6 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_DEVICE_BY_ID, id);
 		ResultSet r = executeQuery(query);
 		
-		logger.info(query);
-		
 		try {
 			if (r.next()) {
 				return getDevice(r);
@@ -117,8 +114,6 @@ public class DeviceRepository {
 					.withManufacturer(manufacturer).withModelId(model).withSerialNumber(serialNumber)
 					.withChannels(channels).build();
 			
-			logger.info(LOGGER_DEVICE_CREATED);
-			
 			return device;
 
 		} catch (SQLException e) {
@@ -137,8 +132,6 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_DEVICES_CHANNELS, deviceId);
 
 		ResultSet r = executeQuery(query);
-		
-		logger.info(query);
 
 		try {
 			while (r.next()) {
@@ -161,8 +154,6 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_CHANNELS, channelId);
 
 		ResultSet r = executeQuery(query);
-		
-		logger.info(query);
 
 		try {
 			if (r.next()) {
@@ -189,8 +180,6 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_CHANNEL_TYPE, channelTypeId);
 		String channelType = "";
 		
-		logger.info(query);
-
 		try {
 
 			ResultSet r = executeQuery(query);
@@ -213,8 +202,6 @@ public class DeviceRepository {
 		String query = String.format(QUERY_GET_MODEL, modelId);
 		HashMap<String, String> result = new HashMap<String, String>();
 
-		logger.info(query);
-		
 		try {
 
 			ResultSet r = executeQuery(query);
@@ -243,8 +230,6 @@ public class DeviceRepository {
 	private String getManufacturer(Integer manufacturerId) {
 		String query = String.format(QUERY_GET_MANUFACTURER, manufacturerId);
 		String manufacturer = "";
-
-		logger.info(query);
 		
 		try {
 

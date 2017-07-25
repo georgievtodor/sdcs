@@ -39,7 +39,7 @@ public class ChannelRepository {
 		String query = String.format(QUERY_UPDATE_COMMAND, command, id);
 
 		logger.info(query);
-		
+
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
 			stmt.executeUpdate();
@@ -50,7 +50,7 @@ public class ChannelRepository {
 			return "failed";
 		}
 	}
-	
+
 	/**
 	 * updates current channel label
 	 * 
