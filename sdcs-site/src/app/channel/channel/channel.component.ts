@@ -43,15 +43,16 @@ export class ChannelComponent implements OnInit {
   }
 
   onTriggerClicked(command) {
-    return this.service.updateCommand(command, this.channel.id)
+      this.service.updateCommand(command, this.channel.id)
       .subscribe(r => {
-        this.channel.command = command;
       });
+      
+      this.channel.command = command;
   }
 
   onChangeColor(color: string) {
     return this.service.updateCommand(color, this.channel.id)
-    .subscribe();
+      .subscribe();
   }
 
   public editClicked() {
@@ -66,9 +67,9 @@ export class ChannelComponent implements OnInit {
     const label = this.updateForm.value['label'].trim() || this.channel.label;
 
     this.service.updateLabel(label, this.channel.id).subscribe(r => {
-      this.channel.label = label
     });
 
+    this.channel.label = label;
     this.editable = false;
 
   }
