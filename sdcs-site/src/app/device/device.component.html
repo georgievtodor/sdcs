@@ -1,7 +1,7 @@
 <div *ngIf="device">
-    <div class="row single-device col-lg-10 col-lg-offset-1">
+    <div class="row single-device col-lg-10 col-lg-offset-1 device-info">
       <!-- Editable -->
-      <div *ngIf="device.editable">
+      <div class="editable" *ngIf="device.editable">
         <form (ngSubmit)="onUpdateDevice()" [formGroup]="updateForm">
           <input style="float:right;" type="submit" id="update" value="Update" class="btn btn-success locked_active" />
           <h3>Label: </h3><input type="text" style="color:black;" name="label" id="device-label" formControlName="label" placeholder="{{device.label}}">
@@ -17,10 +17,10 @@
       </div>
 
       <!-- Not Editable -->
-      <div *ngIf="!device.editable">
+      <div class="not-editable" *ngIf="!device.editable">
         <button style="float:right;" (click)="editClicked()" type="button" class="btn btn-success locked_active">Edit</button>
-        <h3>Label: {{device.label}}</h3>
-        <h3>Manufacturer: {{device.manufacturer}}</h3>
+        <h3>Label: <span class="d-label">{{device.label}}</span></h3>
+        <h3>Manufacturer: <span class="d-manufacturer">{{device.manufacturer}}</span></h3>
         <h3>Model: {{device.modelId}}</h3>
         <br>
         <h4>Firmware Version: {{device.firmwareVersion}}</h4>

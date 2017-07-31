@@ -23,14 +23,14 @@
   <div *ngIf="channel.channelType == 'VolumeChannel' || channel.channelType == 'DimmingChannel'">
     <input id="rangeInput" (mousemove)='onRangeMove($event)' (change)='onRangeChange($event, channel.id)' type="range" min="0"
       max="100" value="{{channel.command.val}}">
-    <div id="rangeInputText" style="color:white;">{{channel.command.val}}%</div>
+    <div id="rangeInputText" style="color:white;"><span class="rangeInputTextValue">{{channel.command.val}}</span>%</div>
   </div>
 
   <!-- SONG URL CHANNEL-->
   <div *ngIf="channel.channelType == 'SongURLChannel'">
     <form #urlForm="ngForm" (ngSubmit)="onUrlUpdate(urlForm, channel.id)">
       <input type="text" name="newUrl" id="newUrl" style="color:black" [(ngModel)]="channel.command.val">
-      <input class="btn btn-success" type="submit" value="Update URL">
+      <input class="btn-url btn btn-success" type="submit" value="Update URL">
     </form>
   </div>
 
@@ -39,28 +39,28 @@
 
     <!-- PLAY -->
     <div *ngIf="channel.command == 'Play'">
-      <div class="btn-group">
-        <button type="button" class="btn btn-success locked_active">Play</button>
-        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive">Pause</button>
-        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive">Stop</button>
+      <div class="btn-group song-control">
+        <button type="button" class="btn btn-success locked_active song-control-play">Play</button>
+        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive song-control-pause">Pause</button>
+        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive song-control-stop">Stop</button>
       </div>
     </div>
 
     <!-- PAUSE-->
     <div *ngIf="channel.command == 'Pause'">
-      <div class="btn-group">
-        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive">Play</button>
-        <button type="button" class="btn btn-success locked_active">Pause</button>
-        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive">Stop</button>
+      <div class="btn-group song-control">
+        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive song-control-play">Play</button>
+        <button type="button" class="btn btn-success locked_active song-control-pause">Pause</button>
+        <button type="button" (click)="onTriggerClicked('Stop')" class="btn btn-default unlocked_inactive song-control-stop">Stop</button>
       </div>
     </div>
 
     <!-- STOP -->
     <div *ngIf="channel.command == 'Stop'">
-      <div class="btn-group">
-        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive">Play</button>
-        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive">Pause</button>
-        <button type="button" class="btn btn-success locked_active">Stop</button>
+      <div class="btn-group song-control">
+        <button type="button" (click)="onTriggerClicked('Play')" class="btn btn-default unlocked_inactive song-control-play">Play</button>
+        <button type="button" (click)="onTriggerClicked('Pause')" class="btn btn-default unlocked_inactive song-control-pause">Pause</button>
+        <button type="button" class="btn btn-success locked_active song-control-stop">Stop</button>
       </div>
     </div>
   </div>
@@ -70,17 +70,17 @@
 
     <!-- ON -->
     <div *ngIf="channel.command == 'Off'">
-      <div class="btn-group">
-        <button type="button" (click)="onTriggerClicked('On')" class=" btn btn-default unlocked_inactive ">On</button>
-        <button type="button" class="btn btn-success locked_active">Off</button>
+      <div class="btn-group trigger">
+        <button type="button" (click)="onTriggerClicked('On')" class="trigger-on btn btn-default unlocked_inactive">On</button>
+        <button type="button" class="trigger-off btn btn-success locked_active">Off</button>
       </div>
     </div>
 
     <!-- OFF -->
     <div *ngIf="channel.command == 'On'">
       <div class="btn-group ">
-        <button type="button" class="btn btn-success locked_active ">On</button>
-        <button type="button" (click)="onTriggerClicked('Off')" class="btn btn-default unlocked_inactive ">Off</button>
+        <button type="button" class="trigger-on btn btn-success locked_active ">On</button>
+        <button type="button" (click)="onTriggerClicked('Off')" class="trigger-off btn btn-default unlocked_inactive ">Off</button>
       </div>
     </div>
   </div>
