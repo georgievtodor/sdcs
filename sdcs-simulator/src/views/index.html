@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+</head>
+
+<body>
+
+    <h1>Humidity/Temperature sensor</h1>
+    <p>Temperature: <span id="temperature"></span></p>
+    <p>Humidity: <span id="humidity"></span></p>
+    
+    <h3>Change Temperature: <input type="text" id="change-temperature"></h3>
+    <button id="btn-temperature">update</button>
+
+    <h3>Change Humidity: <input type="text" id="change-humidity"></h3>
+    <button id="btn-humidity">update</button>
+</body>
+
+<footer>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+    <script src="/static/notifier.js"></script>
+    <script src="/static/requester.js"></script>
+    <script src="/static/get-update-sensor.js"></script>
+    <script src="/static/ejs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3002');
+        socket.on('message', function(data) {
+            app.notifier.showNotification(data.message, 'success');
+        })
+    </script>
+    <%- toasts %>
+</footer>
+
+</html>

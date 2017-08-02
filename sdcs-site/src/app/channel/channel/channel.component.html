@@ -26,6 +26,16 @@
     <div id="rangeInputText" style="color:white;"><span class="rangeInputTextValue">{{channel.command.val}}</span>%</div>
   </div>
 
+  <!-- HUMIDITY CHANNEL -->
+  <div *ngIf="channel.channelType == 'HumidityChannel'">
+    <h4 style="color:white">{{channel.command.val}} %</h4>
+  </div>
+
+  <!-- TEMPERATURE CHANNEL -->
+  <div *ngIf="channel.channelType == 'TemperatureChannel'">
+    <h4 style="color:white">{{channel.command.val}} &#8451;</h4>
+  </div>
+
   <!-- SONG URL CHANNEL-->
   <div *ngIf="channel.channelType == 'SongURLChannel'">
     <form #urlForm="ngForm" (ngSubmit)="onUrlUpdate(urlForm, channel.id)">

@@ -10,6 +10,8 @@ import com.musala.sdcs.exception.InvalidChannelTypeException;
  *
  */
 public class ChannelCreator {
+	private static final String TEMPERATURE_CHANNEL = "TemperatureChannel";
+	private static final String HUMIDITY_CHANNEL = "HumidityChannel";
 	private static final String INVALID_CHANNEL_TYPE_MESSAGE = "%s is not a valid type.";
 	private static final String LOGGER_ERROR_MESSAGE = "Invalid channel type was passed to the method. Passed channel was: %s";
 
@@ -47,6 +49,10 @@ public class ChannelCreator {
 			return ChannelFactory.createVolumeChannel(id, label, channelType, command);
 		case COLOR_CHANNEL:
 			return ChannelFactory.createColorChannel(id, label, channelType, command);
+		case HUMIDITY_CHANNEL:
+			return ChannelFactory.createHumidityChannel(id, label, channelType, command);
+		case TEMPERATURE_CHANNEL:
+			return ChannelFactory.createTemperatureChannel(id, label, channelType, command);
 		default:
 			logger.error(String.format(LOGGER_ERROR_MESSAGE, channelType));
 			throw new InvalidChannelTypeException(String.format(INVALID_CHANNEL_TYPE_MESSAGE, channelType));

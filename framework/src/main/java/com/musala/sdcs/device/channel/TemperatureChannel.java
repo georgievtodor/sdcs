@@ -5,13 +5,8 @@ import java.sql.SQLException;
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.NumberType;
 
-/**
- * This class defines volume channel
- *
- */
-public class VolumeChannel extends AbstractChannel<NumberType> {
-
-	public VolumeChannel(Integer id, String label, String channelType, NumberType command) {
+public class TemperatureChannel extends AbstractChannel<NumberType>{
+	public TemperatureChannel(Integer id, String label, String channelType, NumberType command) {
 		super(id, label, channelType, command);
 	}
 

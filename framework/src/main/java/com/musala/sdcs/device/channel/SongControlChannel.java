@@ -1,5 +1,7 @@
 package com.musala.sdcs.device.channel;
 
+import java.sql.SQLException;
+
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.PlayControlType;
 
@@ -14,7 +16,7 @@ public class SongControlChannel extends AbstractChannel<PlayControlType> {
 	}
 
 	@Override
-	public void executeCommand(PlayControlType command) {
+	public void executeCommand(PlayControlType command) throws SQLException {
 		super.executeCommand(command);
 	}
 }

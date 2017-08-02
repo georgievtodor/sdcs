@@ -1,5 +1,7 @@
 package com.musala.sdcs.device.channel.base;
 
+import java.sql.SQLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,9 +78,9 @@ public abstract class AbstractChannel<T> implements GenericChannel<T> {
 	}
 
 	@Override
-	public void executeCommand(T command) {
+	public void executeCommand(T command) throws SQLException {
 		this.setCommand(command);
-		getChannelRepository().updateChannelCommand(command.toString(), getId());
+		getChannelRepository().updateChannelCommand(command.toString(), getId(), getChannelType());
 		logger.info(String.format(LOGGER_COMMAND_EXECUTION_INFO, command.toString()));
 	}
 
