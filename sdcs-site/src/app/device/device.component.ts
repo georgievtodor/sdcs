@@ -37,14 +37,16 @@ export class DeviceComponent implements OnInit {
     const firmwareVersion = this.updateForm.value['firmwareVersion'].trim() || this.device.firmwareVersion;
     const hardwareVersion = this.updateForm.value['hardwareVersion'].trim() || this.device.hardwareVersion;
 
-    this.service.updateDevice(label, firmwareVersion, hardwareVersion, this.device.id)
-      .subscribe(r => {
-        if (r == "success") {
-          this.device.label = label;
-          this.device.firmwareVersion = firmwareVersion;
-          this.device.hardwareVersion = hardwareVersion;
-        }
-      });
+    if (this.device.label != label || this.device.firmwareVersion != firmwareVersion || this.device.hardwareVersion != hardwareVersion) {
+      this.service.updateDevice(label, firmwareVersion, hardwareVersion, this.device.id)
+        .subscribe(r => {
+          if (r == "success") {
+            this.device.label = label;
+            this.device.firmwareVersion = firmwareVersion;
+            this.device.hardwareVersion = hardwareVersion;
+          }
+        });
+    }
 
     this.device.editable = false;
 

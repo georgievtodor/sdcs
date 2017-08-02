@@ -1,5 +1,7 @@
 package com.musala.sdcs.device.channel;
 
+import java.sql.SQLException;
+
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.URLType;
 
@@ -14,7 +16,7 @@ public class SongURLChannel extends AbstractChannel<URLType> {
 	}
 
 	@Override
-	public void executeCommand(URLType command) {
+	public void executeCommand(URLType command) throws SQLException {
 		super.executeCommand(command);
 	}
 }

@@ -19,14 +19,27 @@ export class ChannelComponent implements OnInit {
     this.updateForm = this.fb.group({
       label: ['']
     })
+
+    if (this.channel.channelType == 'HumidityChannel' || this.channel.channelType == 'TemperatureChannel') {
+      setInterval(this.checkIfCommandIsUpdated.bind(this), 2000);
+    }
+  }
+
+  public checkIfCommandIsUpdated() {
+    return this.service.checkIfCommandIsUpdated(this.channel.id).subscribe(r => {
+      if (this.channel.command.val != r) {
+        this.channel.command.val = r;
+      }
+    })
   }
 
   public onRangeChange(event) {
     this.channel.command.val = event.target.value;
 
-    const id = this.channel.id;
+    const id = this.channel.id,
+      channelType = this.channel.channelType;
 
-    return this.service.updateCommand(event.target.value, id)
+    return this.service.updateCommand(event.target.value, id, channelType)
       .subscribe();
   }
 
@@ -36,22 +49,24 @@ export class ChannelComponent implements OnInit {
 
   onUrlUpdate(urlForm: NgForm) {
     const newUrl = urlForm.value.newUrl,
-      id = this.channel.id;
+      id = this.channel.id,
+      channelType = this.channel.channelType;
 
-    return this.service.updateCommand(newUrl, id)
+    return this.service.updateCommand(newUrl, id, channelType)
       .subscribe();
   }
 
   onTriggerClicked(command) {
-      this.service.updateCommand(command, this.channel.id)
+
+    this.service.updateCommand(command, this.channel.id, this.channel.channelType)
       .subscribe(r => {
       });
-      
-      this.channel.command = command;
+
+    this.channel.command = command;
   }
 
   onChangeColor(color: string) {
-    return this.service.updateCommand(color, this.channel.id)
+    return this.service.updateCommand(color, this.channel.id, this.channel.channelType)
       .subscribe();
   }
 
@@ -65,9 +80,10 @@ export class ChannelComponent implements OnInit {
 
   public onUpdateChannel(): void {
     const label = this.updateForm.value['label'].trim() || this.channel.label;
-
-    this.service.updateLabel(label, this.channel.id).subscribe(r => {
-    });
+    if (label != this.channel.label) {
+      this.service.updateLabel(label, this.channel.id, this.channel.channelType).subscribe(r => {
+      });
+    }
 
     this.channel.label = label;
     this.editable = false;

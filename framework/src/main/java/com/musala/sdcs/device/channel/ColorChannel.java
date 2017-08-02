@@ -1,5 +1,7 @@
 package com.musala.sdcs.device.channel;
 
+import java.sql.SQLException;
+
 import com.musala.sdcs.device.channel.base.AbstractChannel;
 import com.musala.sdcs.device.channel.type.ColorType;
 
@@ -10,7 +12,7 @@ public class ColorChannel extends AbstractChannel<ColorType> {
 	}
 
 	@Override
-	public void executeCommand(ColorType command) {
+	public void executeCommand(ColorType command) throws SQLException {
 		super.executeCommand(command);
 	}
 

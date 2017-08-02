@@ -63,11 +63,11 @@ public class DeviceRepository {
 
 	public List<Device> getAllDevices() {
 		List<Device> devices = new ArrayList<Device>();
-		
+
 		ResultSet r = executeQuery(QUERY_GET_DEVICES);
 
 		logger.info(LOGGER_GETTING_ALL_DEVICES);
-		
+
 		try {
 			while (r.next()) {
 				devices.add(getDevice(r));
@@ -79,10 +79,10 @@ public class DeviceRepository {
 	}
 
 	public Device getDeviceById(int id) {
-		
+
 		String query = String.format(QUERY_GET_DEVICE_BY_ID, id);
 		ResultSet r = executeQuery(query);
-		
+
 		try {
 			if (r.next()) {
 				return getDevice(r);
@@ -90,9 +90,9 @@ public class DeviceRepository {
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
-		
+
 		return null;
-		
+
 	}
 
 	private Device getDevice(ResultSet r) {
@@ -113,7 +113,7 @@ public class DeviceRepository {
 					.withFirmwareVersion(firmwareVersion).withHardwareVersion(hardwareVersion)
 					.withManufacturer(manufacturer).withModelId(model).withSerialNumber(serialNumber)
 					.withChannels(channels).build();
-			
+
 			return device;
 
 		} catch (SQLException e) {
@@ -168,6 +168,7 @@ public class DeviceRepository {
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
+
 		return null;
 
 	}
@@ -179,7 +180,7 @@ public class DeviceRepository {
 	private String getChannelType(Integer channelTypeId) {
 		String query = String.format(QUERY_GET_CHANNEL_TYPE, channelTypeId);
 		String channelType = "";
-		
+
 		try {
 
 			ResultSet r = executeQuery(query);
@@ -230,7 +231,7 @@ public class DeviceRepository {
 	private String getManufacturer(Integer manufacturerId) {
 		String query = String.format(QUERY_GET_MANUFACTURER, manufacturerId);
 		String manufacturer = "";
-		
+
 		try {
 
 			ResultSet result = executeQuery(query);
@@ -245,7 +246,7 @@ public class DeviceRepository {
 
 		return manufacturer;
 	}
-	
+
 	/**
 	 * updates device properties
 	 * 
@@ -254,22 +255,23 @@ public class DeviceRepository {
 	 * @param hardwareVersion
 	 * @param id
 	 * @return success or fail message for front-end handling
+	 * @throws SQLException
 	 */
-	public String updateDevice(String label, String firmwareVersion, String hardwareVersion, Integer id) {
+	public String updateDevice(String label, String firmwareVersion, String hardwareVersion, Integer id)
+			throws SQLException {
 		String query = String.format(QUERY_UPDATE_DEVICE, label, firmwareVersion, hardwareVersion, id);
-		
+
 		logger.info(query);
-		
+
 		try {
 			CallableStatement stmt = dbConnection.prepareCall(query);
+
 			stmt.executeUpdate();
-			
+
 			return "success";
 
 		} catch (SQLException e) {
-			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
-			
-			return "failed";
+			throw e;
 		}
 	}
 
@@ -279,11 +281,10 @@ public class DeviceRepository {
 	 */
 	private ResultSet executeQuery(String query) {
 		ResultSet result = null;
-		
+
 		logger.info(query);
 
 		try {
-
 			CallableStatement stmt = dbConnection.prepareCall(query);
 
 			result = stmt.executeQuery();
@@ -291,9 +292,8 @@ public class DeviceRepository {
 		} catch (SQLException e) {
 			logger.error(LOGGER_INVALID_SQL_MESSAGE, e);
 		}
-		
+
 		return result;
 	}
-	
-	
+
 }

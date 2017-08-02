@@ -31,13 +31,13 @@ public class ValidatorTests {
 	@Theory
 	public void validatePercentShouldReturnTrueWhenCorrectValueIsPassed(
 			@FromDataPoints("correct percent values") String value) {
-		assertTrue(Validator.validatePercent(value));
+		assertTrue(Validator.validateNumberIfBetween(value, 0, 100));
 	}
 
 	@Theory
 	public void validatePercentShouldReturnFalseWhenIncorrectValueIsPassed(
 			@FromDataPoints("incorrect percent values") String value) {
-		assertFalse(Validator.validatePercent(value));
+		assertFalse(Validator.validateNumberIfBetween(value, 0, 100));
 	}
 
 	@Theory

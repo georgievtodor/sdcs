@@ -3,13 +3,10 @@ package com.musala.sdcs.util;
 import java.util.regex.Pattern;
 
 public class Validator {
-	private static final int PERCENT_MIN_VALUE = 0;
-	private static final int PERCENT_MAX_VALUE = 100;
-
 	private static String URL_PATTERN = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-	private static String COLOR_PATTERN = "(^#[0-9a-fA-F]{6}$)|(^#[0-9A-F]{3}$)";
+	private static String COLOR_PATTERN = "(^#[0-9a-fA-F]{6}$)|(^#[0-9a-fA-F]{3}$)";
 
-	public static boolean validatePercent(String value) {
+	public static boolean validateNumberIfBetween(String value, int min, int max) {
 		Integer val;
 
 		try {
@@ -18,7 +15,7 @@ public class Validator {
 			return false;
 		}
 
-		if (PERCENT_MAX_VALUE >= val && val >= PERCENT_MIN_VALUE) {
+		if (max >= val && val >= min) {
 			return true;
 		}
 
